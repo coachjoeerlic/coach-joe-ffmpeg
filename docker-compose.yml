@@ -1,0 +1,21 @@
+version: '3.8'
+
+services:
+  coach-joe-ffmpeg:
+    build: .
+    ports:
+      - "8080:8080"
+    environment:
+      - SUPABASE_URL=https://wbrlglamhecvkcbifzls.supabase.co
+      - SUPABASE_ANON_KEY=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6IndicmxnbGFtaGVjdmtjYmlmemxzIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDcwMTQ5NDMsImV4cCI6MjA2MjU5MDk0M30.YhAybiPgDQa9qPelxiK1dG2Jc3UVzEpeu7SNntVERRY
+      - SUPABASE_SERVICE_KEY=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6IndicmxnbGFtaGVjdmtjYmlmemxzIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc0NzAxNDk0MywiZXhwIjoyMDYyNTkwOTQzfQ.bSPWAebR_0rQnTnTT6pr2SvYpSuugmgIDZZOnAH8uFY
+      - RUNPOD_ENDPOINT_ID=${RUNPOD_ENDPOINT_ID}
+    volumes:
+      - ./temp:/tmp/ffmpeg_processing
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8080/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s 
