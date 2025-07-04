@@ -23,7 +23,7 @@ class CoachJoeVideoProcessor:
         self.temp_dir = tempfile.mkdtemp()
         self.supported_video_formats = ['.mp4', '.mov', '.avi', '.mkv']
         self.supported_image_formats = ['.jpg', '.jpeg', '.png', '.gif']
-        self.supported_audio_formats = ['.mp3', '.wav', '.m4a', '.aac']
+        self.supported_audio_formats = ['.mp3', '.wav', '.m4a', '.aac', '.mpga']
         
     def download_file(self, url, filename=None):
         """Download file from URL to temp directory"""
