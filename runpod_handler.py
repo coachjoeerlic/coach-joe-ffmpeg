@@ -30,11 +30,26 @@ def handler(event):
     logger.info("Starting RunPod FFmpeg processing...")
     logger.info(f"Event: {json.dumps(event, indent=2)}")
     
+    # Handle health check requests
+    if event.get('input', {}).get('health_check'):
+        logger.info("Health check request received")
+        return {
+            'success': True,
+            'status': 'healthy',
+            'service': 'coach-joe-ffmpeg',
+            'timestamp': datetime.now().isoformat()
+        }
+    
     processor = CoachJoeVideoProcessor()
     
     try:
+        # Validate required input
+        input_data = event.get('input', {})
+        if not input_data.get('audio_url'):
+            raise ValueError("audio_url is required")
+        
         # Process the video
-        result = processor.process_video(event['input'])
+        result = processor.process_video(input_data)
         
         logger.info("Processing completed successfully")
         logger.info(f"Result: {json.dumps(result, indent=2)}")

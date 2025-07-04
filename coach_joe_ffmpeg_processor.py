@@ -27,6 +27,9 @@ class CoachJoeVideoProcessor:
         
     def download_file(self, url, filename=None):
         """Download file from URL to temp directory"""
+        if not url:
+            raise ValueError("URL cannot be None or empty")
+        
         if not filename:
             filename = url.split('/')[-1]
         
@@ -88,6 +91,16 @@ class CoachJoeVideoProcessor:
             logger.info(f"Audio URL: {audio_url}")
             logger.info(f"Video URLs: {len(video_urls)} videos")
             logger.info(f"Image URLs: {len(image_urls)} images")
+            
+            # Validate required inputs
+            if not audio_url:
+                raise ValueError("audio_url is required and cannot be None or empty")
+            
+            # Ensure lists are not None
+            if video_urls is None:
+                video_urls = []
+            if image_urls is None:
+                image_urls = []
             
             # Download audio file
             audio_file = self.download_file(audio_url, 'coach_joe_audio.mp3')
