@@ -145,7 +145,8 @@ class CoachJoeVideoProcessor:
             logger.info("FFmpeg processing completed successfully")
             
             # Upload to Supabase (or return file path for upload)
-            upload_result = self.upload_to_supabase(output_file)
+            include_video_data = config.get('include_video_data', True)
+            upload_result = self.upload_to_supabase(output_file, include_video_data)
             
             if isinstance(upload_result, dict):
                 final_url = upload_result.get('video_url')
@@ -264,7 +265,7 @@ class CoachJoeVideoProcessor:
         
         return cmd
     
-    def upload_to_supabase(self, file_path):
+    def upload_to_supabase(self, file_path, include_video_data=True):
         """Upload processed video to Supabase storage"""
         try:
             # Read the processed video file
@@ -273,23 +274,30 @@ class CoachJoeVideoProcessor:
             
             filename = os.path.basename(file_path)
             
-            # For RunPod deployment, we'll return the file data as base64
-            # so it can be uploaded by the N8N workflow
-            video_base64 = base64.b64encode(video_data).decode('utf-8')
-            
             supabase_url = f"https://wbrlglamhecvkcbifzls.supabase.co/storage/v1/object/public/coach-joe-videos/{filename}"
             
             logger.info(f"Video processed successfully: {filename}")
             logger.info(f"File size: {len(video_data)} bytes")
             logger.info(f"Target Supabase URL: {supabase_url}")
             
-            return {
+            result = {
                 "video_url": supabase_url,
-                "video_data": video_base64,
                 "filename": filename,
                 "file_size": len(video_data),
                 "upload_ready": True
             }
+            
+            # Only include video data if requested (for production use)
+            if include_video_data:
+                # For RunPod deployment, we'll return the file data as base64
+                # so it can be uploaded by the N8N workflow
+                video_base64 = base64.b64encode(video_data).decode('utf-8')
+                result["video_data"] = video_base64
+                logger.info("Video data included in response (base64 encoded)")
+            else:
+                logger.info("Video data excluded from response (testing mode)")
+            
+            return result
             
         except Exception as e:
             logger.error(f"Upload preparation failed: {str(e)}")
