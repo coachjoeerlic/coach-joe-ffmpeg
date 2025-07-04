@@ -1,0 +1,11 @@
+{
+  "audio_url": "https://wbrlglamhecvkcbifzls.supabase.co/storage/v1/object/public/coach-joe-audio/sample-audio.mp3",
+  "video_urls": [
+    "https://wbrlglamhecvkcbifzls.supabase.co/storage/v1/object/public/jump-strength-short-vids/sample-video.mp4"
+  ],
+  "image_urls": [
+    "https://wbrlglamhecvkcbifzls.supabase.co/storage/v1/object/public/jump-strength-short-pics/sample-image.jpg"
+  ],
+  "video_volume_reduction": 90,
+  "output_duration_extra": 1
+} 
