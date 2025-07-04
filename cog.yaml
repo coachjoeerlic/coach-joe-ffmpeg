@@ -1,0 +1,9 @@
+build:
+  python_version: "3.9"
+  system_packages:
+    - ffmpeg
+    - curl
+  python_packages:
+    - requests==2.31.0
+
+predict: "replicate_handler.py:Predictor" 
