@@ -24,6 +24,7 @@ RUN mkdir -p /tmp/ffmpeg_processing
 # Set environment variables
 ENV PYTHONPATH=/app
 ENV TEMP_DIR=/tmp/ffmpeg_processing
+ENV RUNPOD_ENDPOINT_ID=coach-joe-ffmpeg
 
 # Expose port for HTTP endpoints
 EXPOSE 8080
@@ -32,5 +33,15 @@ EXPOSE 8080
 HEALTHCHECK --interval=30s --timeout=10s --start-period=5s --retries=3 \
     CMD curl -f http://localhost:8080/health || exit 1
 
-# Default command (can be overridden for different platforms)
-CMD ["python", "runpod_handler.py"] 
+# Create startup script for RunPod
+RUN echo '#!/bin/bash\n\
+echo "Starting Coach Joe FFmpeg Processor..."\n\
+echo "Python path: $PYTHONPATH"\n\
+echo "Working directory: $(pwd)"\n\
+echo "Files in /app: $(ls -la /app)"\n\
+echo "RunPod Endpoint ID: $RUNPOD_ENDPOINT_ID"\n\
+python runpod_handler.py\n\
+' > /app/start.sh && chmod +x /app/start.sh
+
+# Use the startup script as the default command
+CMD ["/app/start.sh"] 
