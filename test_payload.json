@@ -1,10 +1,10 @@
 {
-  "audio_url": "https://wbrlglamhecvkcbifzls.supabase.co/storage/v1/object/public/coach-joe-audio/sample-audio.mp3",
+  "audio_url": "https://supabase.com/dashboard/project/wbrlglamhecvkcbifzls/storage/buckets/coach-joe-audio",
   "video_urls": [
-    "https://wbrlglamhecvkcbifzls.supabase.co/storage/v1/object/public/jump-strength-short-vids/sample-video.mp4"
+    "https://supabase.com/dashboard/project/wbrlglamhecvkcbifzls/storage/buckets/jump-strength-short-vids"
   ],
   "image_urls": [
-    "https://wbrlglamhecvkcbifzls.supabase.co/storage/v1/object/public/jump-strength-short-pics/sample-image.jpg"
+    "https://supabase.com/dashboard/project/wbrlglamhecvkcbifzls/storage/buckets/jump-strength-short-pics"
   ],
   "video_volume_reduction": 90,
   "output_duration_extra": 1
