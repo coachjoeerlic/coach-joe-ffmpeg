@@ -121,3 +121,8 @@ temp/
 .Trashes
 ehthumbs.db
 Thumbs.db
+
+# N8N workflow files with sensitive data (API keys, tokens, etc.)
+Coach_Joe_FFmpeg_Workflow*.json
+My_workflow_*.json
+*_workflow_*.json
